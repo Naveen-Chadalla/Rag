@@ -14,6 +14,37 @@ AUTH_TOKEN = os.getenv("AUTH_TOKEN")
 
 app = FastAPI()
 
+# Define OpenAPI security schema to enable Swagger "Authorize" button
+def custom_openapi():
+    if app.openapi_schema:
+        return app.openapi_schema
+
+    openapi_schema = get_openapi(
+        title="RAG API",
+        version="1.0.0",
+        description="RAG backend API with Bearer token authorization",
+        routes=app.routes,
+    )
+
+    openapi_schema["components"]["securitySchemes"] = {
+        "BearerAuth": {
+            "type": "http",
+            "scheme": "bearer",
+            "bearerFormat": "JWT"
+        }
+    }
+
+    for path in openapi_schema["paths"]:
+        for method in openapi_schema["paths"][path]:
+            if method in ["post", "get"]:
+                openapi_schema["paths"][path][method]["security"] = [{"BearerAuth": []}]
+
+    app.openapi_schema = openapi_schema
+    return app.openapi_schema
+
+
+app.openapi = custom_openapi
+
 
 class QueryRequest(BaseModel):
     documents: str  # URL to the PDF document
@@ -44,3 +75,4 @@ async def run_hackrx(request: Request, payload: QueryRequest, authorization: Opt
         return {"answers": answers}
     except Exception as e:
         return JSONResponse(status_code=500, content={"success": False, "error": str(e)})
+
