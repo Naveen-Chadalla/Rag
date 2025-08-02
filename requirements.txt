@@ -8,6 +8,9 @@ python-dotenv==1.0.1
 google-genai
 google-api-core==2.24.2
 google-auth==2.38.0
+langchain>=0.1.14,<0.2.0
+
+
 
 
 
