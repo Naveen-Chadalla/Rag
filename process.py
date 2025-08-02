@@ -13,7 +13,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 load_dotenv()
 
 #Access the API key and the embeding model from the env file
-GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 
 EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL")
 
@@ -181,3 +181,4 @@ def question_answering(question, embeddings, chunks):
     )
     # Return the text response
     return response.text
+
