@@ -1,5 +1,6 @@
 # File: server.py
 import os
+import traceback
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Header, Request
 from fastapi.responses import JSONResponse
@@ -44,6 +45,8 @@ async def run_hackrx(request: Request, payload: QueryRequest, authorization: Opt
 
         return {"answers": answers}
     except Exception as e:
+        print(traceback.format_exc()) 
         return JSONResponse(status_code=500, content={"success": False, "error": str(e)})
+
 
 
