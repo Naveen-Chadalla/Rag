@@ -1,14 +1,15 @@
 fastapi==0.116.1
 uvicorn==0.29.0
 requests==2.32.3
---index-url https://download.pytorch.org/whl/cpu
-torch
+torch==2.1.2+cpu
+--extra-index-url https://download.pytorch.org/whl/cpu
 sentence-transformers==2.7.0
 PyPDF2
 numpy==1.26.4
 python-dotenv==1.0.1
 google-genai
 langchain-text-splitters
+
 
 
 
