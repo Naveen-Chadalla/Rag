@@ -45,11 +45,12 @@ async def run_hackrx(request: Request, payload: QueryRequest, authorization: Opt
         
         # Step 3: Answer each question
         answers = []
+        idx = 0
         for question in payload.questions:
             start = time.time()
             print(f"🔹 Answering question {idx+1}: {question[:15]}...")
             answer = question_answering(question, embeddings, chunks)
-            print(f"✅ Answered Q{idx+1} in {time.time() - start:.2f} seconds")
+            print(f"✅ Answered Q{idx} in {time.time() - start:.2f} seconds")
             answers.append(answer)
         total_time = time.time() - overall_start
         print(f"🎯 Total request time: {total_time:.2f} seconds")
@@ -59,6 +60,7 @@ async def run_hackrx(request: Request, payload: QueryRequest, authorization: Opt
     except Exception as e:
         print(traceback.format_exc()) 
         return JSONResponse(status_code=500, content={"success": False, "error": str(e)})
+
 
 
 
