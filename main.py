@@ -43,10 +43,13 @@ async def run_hackrx(request: Request, payload: QueryRequest, authorization: Opt
             answer = question_answering(question, embeddings, chunks)
             answers.append(answer)
 
+        print("Returning answers:", answers)
+
         return {"answers": answers}
     except Exception as e:
         print(traceback.format_exc()) 
         return JSONResponse(status_code=500, content={"success": False, "error": str(e)})
+
 
 
 
