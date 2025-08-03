@@ -170,7 +170,7 @@ def question_answering(question, embeddings, chunks):
     # Send the prepared prompt to the Gemini model for content generation.
     # This call uses the Gemini API client to generate a response based on the given content.
     response = client.models.generate_content(
-        model="gemini-2.0-flash-lite",# Specify the model version to use (lightweight and fast version of Gemini 2.0)
+        model="gemini-2.5-flash-lite",# Specify the model version to use (lightweight and fast version of Gemini 2.5)
 
         # Configuration settings for content generation
         config=types.GenerateContentConfig(
@@ -181,4 +181,5 @@ def question_answering(question, embeddings, chunks):
     )
     # Return the text response
     return response.text
+
 
